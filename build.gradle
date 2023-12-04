@@ -1,0 +1,51 @@
+plugins {
+    id 'war'
+    id 'org.gretty' version '3.1.1' // This includes a jetty webserver
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+war{
+    webXml = file('web.xml')
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    // all of the library jar files used are to be zipped into the war file:-
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+// We have to create a new gradle task called ‘stage’ that Heroku will run
+// when deploying the war file
+tasks.register('stage'){
+    dependsOn 'build'
+    dependsOn 'clean'
+}
+build.mustRunAfter clean
+
+
+dependencies {
+    //implementation 'org.glassfish.jersey.core:jersey-server:2.26'
+    implementation 'org.glassfish.jersey.containers:jersey-container-servlet:2.26'
+    implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:2.26'
+    //implementation 'org.glassfish.jersey.ext:jersey-entity-filtering:2.26'
+    implementation 'org.glassfish.jersey.inject:jersey-hk2:2.26'
+    runtimeOnly group: 'org.postgresql', name: 'postgresql', version: '42.2.18'
+
+
+    // Required to run Jersey on servlet containers like Tomcat
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+    implementation 'javax.ws.rs:javax.ws.rs-api:2.1.1'
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
