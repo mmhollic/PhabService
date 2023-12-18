@@ -4,7 +4,7 @@
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>accountpackage</param-value>
+            <param-value>accountpackage,wholesalerpackage</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
