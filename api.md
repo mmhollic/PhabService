@@ -164,3 +164,5 @@ On success: Response status 200.<br>
 Response body is a fully detailed object of class wholesalerpackage.Order with all fields filled in, giving you the orderId as above
 This api call checks to see if delivery has been made and updates the order status accordingly. Delivery normally takes 10 minutes from order being placed.<br>
 On fail: Response status 404 or 500.
+
+If you are building for gretty rather than heroku, please change the switch in DAO.java 
