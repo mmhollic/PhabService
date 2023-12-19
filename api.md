@@ -161,7 +161,7 @@ On fail: Response status 404 or 500.
 Type: GET<br>
 Description: Gets the details of order 3, updating the delivery status if necessary<br>
 On success: Response status 200.<br>
-Response body is a fully detailed object of class wholesalerpackage.Order with all fields filled in, giving you the orderId as above
+Response body is text that either says 'PENDING' or 'DELIVERED'<br>
 This api call checks to see if delivery has been made and updates the order status accordingly. Delivery normally takes 10 minutes from order being placed.<br>
 On fail: Response status 404 or 500.
 
